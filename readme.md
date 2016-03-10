@@ -6,13 +6,13 @@ Dieser Service liest das Shape-File für das Grünflächekataster von [Gruenflae
 
 Es soll ein Service erstellt werden, der die von der Stadt Köln zur Verfügung gestellten Informationen bzgl. der Grünflächen als GeoJson formatiert. Desweiteren soll es möglich sein, gezielt Flächentypen abfragen zu können. Folgende Flächentypen werden unterstützt:
 
-- Biotopflächen
-- Forsteigene Flächen
-- Friedhöfe
-- Grünanlagen
-- Kleingärten
-- Sondergrünflächen
-- Spielplätze
+- Biotopflächen [bi]
+- Forsteigene Flächen [fo]
+- Friedhöfe [fr]
+- Grünanlagen [gr]
+- Kleingärten [kl]
+- Sondergrünflächen [so]
+- Spielplätze [sp]
 
 Hierfür werden REST-Endpoints eingerichtet. Außerdem soll eine einfache Oberfläche den Inhalt der Services darstellen. Diese Oberfläche soll auf Basis von [BootLeaf](https://github.com/bmcbride/bootleaf) erstellt werden.
 
