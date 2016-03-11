@@ -43,8 +43,15 @@ import org.opengis.util.ProgressListener;
 import com.vividsolutions.jts.geom.Geometry;
 
 /**
+ * <p>
  * This is a visual example of changing the coordinate reference system of a
  * feature layer.
+ * </p>
+ * <p>
+ * <a href=
+ * "http://docs.geotools.org/latest/userguide/tutorial/geometry/geometrycrs.html">
+ * GeoTools: Geometry CRS Tutorial</a>
+ * </p>
  */
 public class CRSLab {
 
