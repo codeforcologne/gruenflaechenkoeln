@@ -71,9 +71,9 @@
 			<version>${geotools.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.osgeo</groupId>
-			<artifactId>proj4j</artifactId>
-			<version>0.1.0</version>
+			<groupId>org.geotools</groupId>
+			<artifactId>gt-geojson</artifactId>
+			<version>${geotools.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>de.grundid.opendatalab</groupId>
