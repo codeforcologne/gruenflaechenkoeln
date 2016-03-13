@@ -22,7 +22,7 @@ Zur Interpretation der Shape-Dateien wird das Projekt [GeoTools](http://geotools
 
 ## Projektion
 
-Die Polygone stehen als [Gauß-Krüger Koordinatensystem](http://wiki.openstreetmap.org/wiki/DE:Gau%C3%9F-Kr%C3%BCger) zur Verfügung. Für die Verwendung von GeoJson bietet sich aber die Koordination in Dezimalgrad (WGS84) umzuwandeln. Für manuelle Tests kann dies mit dem [Online Koordinaten Umrechner für WGS84, UTM, CH1903, UTMREF(MGRS), Gauß-Krüger, NAC](http://www.deine-berge.de/Rechner/Koordinaten) geschehen. Programmatisch soll dies aber auf Basis der Bibliothek [Proj4J](https://trac.osgeo.org/proj4j/) vorgenommen werden.
+Die Polygone stehen als [Gauß-Krüger Koordinatensystem](http://wiki.openstreetmap.org/wiki/DE:Gau%C3%9F-Kr%C3%BCger) zur Verfügung. Für die Verwendung von GeoJson bietet sich aber die Koordination in Dezimalgrad (WGS84) umzuwandeln. Für manuelle Tests kann dies mit dem [Online Koordinaten Umrechner für WGS84, UTM, CH1903, UTMREF(MGRS), Gauß-Krüger, NAC](http://www.deine-berge.de/Rechner/Koordinaten) geschehen.
 
 ## License
 
