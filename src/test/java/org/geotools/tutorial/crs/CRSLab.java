@@ -16,6 +16,7 @@ import org.geotools.data.DataStoreFactorySpi;
 import org.geotools.data.DataStoreFinder;
 import org.geotools.data.DefaultTransaction;
 import org.geotools.data.FeatureWriter;
+import org.geotools.data.Query;
 import org.geotools.data.Transaction;
 import org.geotools.data.shapefile.ShapefileDataStoreFactory;
 import org.geotools.data.simple.SimpleFeatureCollection;
@@ -62,6 +63,10 @@ public class CRSLab {
 	public static void main(String[] args) throws Exception {
 		CRSLab lab = new CRSLab();
 		lab.displayShapefile();
+
+		Query query = new Query();
+		CoordinateReferenceSystem reference = CRS.decode("EPSG:4326", false);
+		query.setCoordinateSystemReproject(reference);
 	}
 
 	private void displayShapefile() throws Exception {
