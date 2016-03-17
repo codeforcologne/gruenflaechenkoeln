@@ -13,6 +13,10 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
+import org.opengis.geometry.MismatchedDimensionException;
+import org.opengis.referencing.FactoryException;
+import org.opengis.referencing.NoSuchAuthorityCodeException;
+import org.opengis.referencing.operation.TransformException;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -34,16 +38,16 @@ public class Service {
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("/json")
-	public String getJson()
-			throws JsonParseException, JsonMappingException, IOException, SQLException, NamingException {
+	public String getJson() throws JsonParseException, JsonMappingException, IOException, SQLException, NamingException,
+			MismatchedDimensionException, NoSuchAuthorityCodeException, FactoryException, TransformException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		boolean geojson = request.getParameter("geojson") == null;
 		Facade facade = null;
 		if (geojson) {
-			facade = new GeoJsonFacade(null);
+			facade = new GeoJsonFacade();
 		} else {
-			facade = new GeoJsonFacade(null);
+			facade = new GeoJsonFacade();
 		}
 
 		return facade.getJson();

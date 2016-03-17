@@ -9,10 +9,10 @@ Es soll ein Service erstellt werden, der die von der Stadt Köln zur Verfügung 
 - Biotopflächen [bi]
 - Forsteigene Flächen [fo]
 - Friedhöfe [fr]
-- Grünanlagen [gr]
-- Kleingärten [kl]
+- Grünanlagen [7]
+- Kleingärten [3]
 - Sondergrünflächen [so]
-- Spielplätze [sp]
+- Spielplätze [4]
 
 Hierfür werden REST-Endpoints eingerichtet. Außerdem soll eine einfache Oberfläche den Inhalt der Services darstellen. Diese Oberfläche soll auf Basis von [BootLeaf](https://github.com/bmcbride/bootleaf) erstellt werden.
 

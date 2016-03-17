@@ -2,10 +2,9 @@ package de.illilli.opendata.service.gruenflaechen.koeln;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.net.URL;
 
-import org.geotools.data.simple.SimpleFeatureCollection;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.opengis.geometry.MismatchedDimensionException;
@@ -15,27 +14,19 @@ import org.opengis.referencing.operation.TransformException;
 
 public class GeoJsonFacadeTest {
 
-	private Map<String, Object> params;
-	private String code = "EPSG:4326";
+	private URL url;
 
 	@Before
 	public void setUp() throws Exception {
-		File file = new File("./src/test/resources/objekte.shp");
-		params = new HashMap<String, Object>();
-		params.put("url", file.toURI().toURL());
-		params.put("create spatial index", false);
-		params.put("memory mapped buffer", false);
-		params.put("charset", "UTF-8");
+		url = new File("./src/test/resources/objekte.shp").toURI().toURL();
 	}
 
 	@Test
-	public void test() throws MismatchedDimensionException, NoSuchAuthorityCodeException, IOException, FactoryException,
-			TransformException {
-		CoordinateTransformer ccr = new CoordinateTransformer(params, code);
-		SimpleFeatureCollection simpleFeatureCollection = ccr.getnewProjectionCollection();
-		GeoJsonFacade transformer = new GeoJsonFacade(simpleFeatureCollection);
-		String json = transformer.getJson();
-		// System.out.println(json);
+	public void testForFeatureCollection() throws MismatchedDimensionException, NoSuchAuthorityCodeException,
+			IOException, FactoryException, TransformException {
+		GeoJsonFacade facade = new GeoJsonFacade(url);
+		String json = facade.getJson();
+		Assert.assertTrue(json.contains("FeatureCollection"));
 	}
 
 }
