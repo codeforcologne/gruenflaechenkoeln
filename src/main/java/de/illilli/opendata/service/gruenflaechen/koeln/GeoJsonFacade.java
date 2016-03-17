@@ -41,8 +41,17 @@ public class GeoJsonFacade implements Facade {
 		json = shape2GeoJsonTransformer.getJson();
 	}
 
+	/**
+	 * Do not use this. File path not working!
+	 * 
+	 * @return
+	 * @throws MalformedURLException
+	 */
+	@Deprecated
 	static URL getUrlToShapeFile() throws MalformedURLException {
-		return new File("./src/test/resources/objekte.shp").toURI().toURL();
+		File file = new File("./src/main/resources/objekte.shp");
+		System.out.println("###: " + file.getAbsolutePath());
+		return file.toURI().toURL();
 	}
 
 	@Override

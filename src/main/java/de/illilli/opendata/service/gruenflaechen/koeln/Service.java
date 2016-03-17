@@ -35,19 +35,47 @@ public class Service {
 	@Context
 	private HttpServletResponse response;
 
+	/**
+	 * <p>
+	 * This service response with JSON only. Different formats are available.
+	 * </p>
+	 * 
+	 * <p>
+	 * Example
+	 * <a href="http://localhost:8080/gruenflaechenkoeln/service/flaechen">
+	 * /gruenflaechenkoeln/service/flaechen</a>
+	 * </p>
+	 * 
+	 * <p>
+	 * Example (geojson) <a href=
+	 * "http://localhost:8080/gruenflaechenkoeln/service/flaechen?geojson">
+	 * /gruenflaechenkoeln/service/flaechen?geojson</a>
+	 * </p>
+	 * 
+	 * @return
+	 * @throws JsonParseException
+	 * @throws JsonMappingException
+	 * @throws IOException
+	 * @throws SQLException
+	 * @throws NamingException
+	 * @throws MismatchedDimensionException
+	 * @throws NoSuchAuthorityCodeException
+	 * @throws FactoryException
+	 * @throws TransformException
+	 */
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	@Path("/json")
+	@Path("/flaechen")
 	public String getJson() throws JsonParseException, JsonMappingException, IOException, SQLException, NamingException,
 			MismatchedDimensionException, NoSuchAuthorityCodeException, FactoryException, TransformException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		boolean geojson = request.getParameter("geojson") == null;
+		boolean geojson = request.getParameter("geojson") != null;
 		Facade facade = null;
 		if (geojson) {
 			facade = new GeoJsonFacade();
 		} else {
-			facade = new GeoJsonFacade();
+			facade = new JsonFacade();
 		}
 
 		return facade.getJson();
