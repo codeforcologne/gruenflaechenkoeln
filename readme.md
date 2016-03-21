@@ -2,17 +2,21 @@
 
 Dieser Service liest das Shape-File für das Grünflächekataster von [Gruenflaechenkataster Koeln Flaechentypen](http://offenedaten-koeln.de/dataset/gruenflaechenkataster-koeln-flaechentypen) aus und bietet die so gewonnen Informationen als GeoJson - Information an.
 
+## Status
+
+In Entwicklung/ nicht lauffähig
+
 ## Ziele
 
 Es soll ein Service erstellt werden, der die von der Stadt Köln zur Verfügung gestellten Informationen bzgl. der Grünflächen als GeoJson formatiert. Desweiteren soll es möglich sein, gezielt Flächentypen abfragen zu können. Folgende Flächentypen werden unterstützt:
 
-- Biotopflächen [bi]
-- Forsteigene Flächen [fo]
-- Friedhöfe [fr]
-- Grünanlagen [7]
-- Kleingärten [3]
-- Sondergrünflächen [so]
-- Spielplätze [4]
+- [2] Kleingärten 
+- [4] Spielplätze 
+- [7] Grünanlagen 
+- [8] Friedhöfe 
+- [9] Biotopflächen 
+- [11] Sondergrünflächen 
+- [12] Forsteigene Flächen 
 
 Hierfür werden REST-Endpoints eingerichtet. Außerdem soll eine einfache Oberfläche den Inhalt der Services darstellen. Diese Oberfläche soll auf Basis von [BootLeaf](https://github.com/bmcbride/bootleaf) erstellt werden.
 
