@@ -46,12 +46,6 @@ public class Service {
 	 * /gruenflaechenkoeln/service/flaechen</a>
 	 * </p>
 	 * 
-	 * <p>
-	 * Example (geojson) <a href=
-	 * "http://localhost:8080/gruenflaechenkoeln/service/flaechen?geojson">
-	 * /gruenflaechenkoeln/service/flaechen?geojson</a>
-	 * </p>
-	 * 
 	 * @return
 	 * @throws JsonParseException
 	 * @throws JsonMappingException
@@ -66,18 +60,14 @@ public class Service {
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("/flaechen")
-	public String getJson() throws JsonParseException, JsonMappingException, IOException, SQLException, NamingException,
+	public String getFlaechen()
+			throws JsonParseException, JsonMappingException, IOException, SQLException, NamingException,
 			MismatchedDimensionException, NoSuchAuthorityCodeException, FactoryException, TransformException {
+
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		boolean geojson = request.getParameter("geojson") != null;
-		Facade facade = null;
-		if (geojson) {
-			facade = new GeoJsonFacade();
-		} else {
-			facade = new JsonFacade();
-		}
 
+		Facade facade = new GeoJsonFacade();
 		return facade.getJson();
 	}
 
