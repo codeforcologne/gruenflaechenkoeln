@@ -72,9 +72,19 @@ public class Shape2GeoJsonTransformer {
 				Polygon polygon = (Polygon) multiPolygon.getGeometryN(n);
 				Coordinate[] coordinates = polygon.getCoordinates();
 				List<LngLatAlt> lngLatAltList = new ArrayList<>();
+				boolean firstRun = true;
+				LngLatAlt firstLngLatAlt = new LngLatAlt();
+				LngLatAlt lngLatAlt = new LngLatAlt();
 				for (Coordinate coordinate : coordinates) {
-					LngLatAlt lngLatAlt = new LngLatAlt(coordinate.x, coordinate.y);
+					if (firstRun) {
+						firstLngLatAlt = new LngLatAlt(coordinate.x, coordinate.y);
+						firstRun = false;
+					}
+					lngLatAlt = new LngLatAlt(coordinate.x, coordinate.y);
 					lngLatAltList.add(lngLatAlt);
+				}
+				if (!lngLatAlt.equals(firstLngLatAlt)) {
+					lngLatAltList.add(firstLngLatAlt);
 				}
 				geojsonPolygon.add(lngLatAltList);
 				geojsonMulitPoligon.add(geojsonPolygon);
