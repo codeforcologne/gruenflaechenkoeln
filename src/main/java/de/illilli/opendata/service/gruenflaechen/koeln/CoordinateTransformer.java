@@ -1,10 +1,7 @@
 package de.illilli.opendata.service.gruenflaechen.koeln;
 
 import java.io.IOException;
-import java.util.Map;
 
-import org.geotools.data.DataStore;
-import org.geotools.data.DataStoreFinder;
 import org.geotools.data.collection.ListFeatureCollection;
 import org.geotools.data.simple.SimpleFeatureCollection;
 import org.geotools.data.simple.SimpleFeatureIterator;
@@ -25,25 +22,32 @@ import com.vividsolutions.jts.geom.Geometry;
 public class CoordinateTransformer {
 
 	private ListFeatureCollection newProjectionCollection;
+	private SimpleFeatureSource featureSource;
+	private SimpleFeatureCollection featureCollection;
+	private String code;
 
-	public CoordinateTransformer(Map<String, Object> params, String code) throws IOException,
+	public CoordinateTransformer(final SimpleFeatureSource featureSource, String code) throws IOException,
 			NoSuchAuthorityCodeException, FactoryException, MismatchedDimensionException, TransformException {
-
-		transform(params, code);
-
+		this.featureSource = featureSource;
+		this.code = code;
+		featureCollection = featureSource.getFeatures();
 	}
 
-	void transform(Map<String, Object> params, String code) throws IOException, NoSuchAuthorityCodeException,
-			FactoryException, MismatchedDimensionException, TransformException {
+	public SimpleFeatureCollection transform(final SimpleFeatureCollection featureCollection)
+			throws MismatchedDimensionException, NoSuchAuthorityCodeException, IOException, FactoryException,
+			TransformException {
+		this.featureCollection = featureCollection;
+		transform();
+		return newProjectionCollection;
+	}
 
-		DataStore store = DataStoreFinder.getDataStore(params);
-		SimpleFeatureSource featureSource = store.getFeatureSource(store.getTypeNames()[0]);
+	public SimpleFeatureCollection transform() throws IOException, NoSuchAuthorityCodeException, FactoryException,
+			MismatchedDimensionException, TransformException {
+
 		SimpleFeatureType schema = featureSource.getSchema();
 
 		CoordinateReferenceSystem dataCRS = schema.getCoordinateReferenceSystem();
 		CoordinateReferenceSystem newCRS = CRS.decode(code, false);
-
-		final SimpleFeatureCollection featureCollection = featureSource.getFeatures();
 
 		boolean lenient = true; // allow for some error due to different datums
 		MathTransform transform = CRS.findMathTransform(dataCRS, newCRS, lenient);
@@ -58,10 +62,8 @@ public class CoordinateTransformer {
 			feature.setDefaultGeometry(JTS.transform(geometry, transform));
 
 		}
-	}
-
-	public SimpleFeatureCollection getnewProjectionCollection() {
 		return newProjectionCollection;
+
 	}
 
 }

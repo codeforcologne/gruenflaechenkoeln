@@ -12,9 +12,14 @@ import org.geotools.data.simple.SimpleFeatureCollection;
 import org.geotools.data.simple.SimpleFeatureIterator;
 import org.geotools.data.simple.SimpleFeatureSource;
 import org.geotools.filter.text.cql2.CQLException;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.opengis.feature.simple.SimpleFeature;
+import org.opengis.geometry.MismatchedDimensionException;
+import org.opengis.referencing.FactoryException;
+import org.opengis.referencing.NoSuchAuthorityCodeException;
+import org.opengis.referencing.operation.TransformException;
 
 import com.vividsolutions.jts.geom.Geometry;
 
@@ -35,19 +40,24 @@ public class ObjekttypFilterTest {
 	}
 
 	@Test
-	public void testSpielplaetze() throws IOException, CQLException {
+	public void testSpielplaetze() throws IOException, CQLException, MismatchedDimensionException,
+			NoSuchAuthorityCodeException, FactoryException, TransformException {
 		DataStore store = DataStoreFinder.getDataStore(params);
 		SimpleFeatureSource featureSource = store.getFeatureSource(store.getTypeNames()[0]);
 
 		ObjekttypFilter filter = new ObjekttypFilter(featureSource);
-		SimpleFeatureCollection sfc = filter.getSimpleFeatureCollection(FlaechentypEnum.SPIELPLATZ);
-		SimpleFeatureIterator iterator = sfc.features();
+		SimpleFeatureCollection simpleFeatureCollection = filter.getSimpleFeatureCollection(FlaechentypEnum.SPIELPLATZ);
+		SimpleFeatureIterator iterator = simpleFeatureCollection.features();
 
 		while (iterator.hasNext()) {
 			SimpleFeature feature = iterator.next();
 
-			System.out.println(feature.getAttribute(2) + ": " + feature.getAttribute(3) + ": " + feature.getAttribute(7)
-					+ " - " + feature.getAttribute(2));
+			int expected = 4;
+			int actual = (Integer) feature.getAttribute(3);
+			Assert.assertEquals(expected, actual);
+			// System.out.println(feature.getAttribute(2) + ": " +
+			// feature.getAttribute(3) + ": " + feature.getAttribute(7)
+			// + " - " + feature.getAttribute(2));
 
 		}
 	}

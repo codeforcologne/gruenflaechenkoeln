@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -37,7 +38,7 @@ public class Service {
 
 	/**
 	 * <p>
-	 * This service response with JSON only. Different formats are available.
+	 * This service response with JSON only.
 	 * </p>
 	 * 
 	 * <p>
@@ -68,6 +69,43 @@ public class Service {
 		response.setCharacterEncoding("UTF-8");
 
 		Facade facade = new GeoJsonFacade();
+		return facade.getJson();
+	}
+
+	/**
+	 * <p>
+	 * This service response with JSON only.
+	 * </p>
+	 * 
+	 * <p>
+	 * Example
+	 * <a href="http://localhost:8080/gruenflaechenkoeln/service/flaechen/4">
+	 * /gruenflaechenkoeln/service/flaechen/{id}</a>
+	 * </p>
+	 * 
+	 * @param id
+	 * @return
+	 * @throws JsonParseException
+	 * @throws JsonMappingException
+	 * @throws IOException
+	 * @throws SQLException
+	 * @throws NamingException
+	 * @throws MismatchedDimensionException
+	 * @throws NoSuchAuthorityCodeException
+	 * @throws FactoryException
+	 * @throws TransformException
+	 */
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Path("/flaechen/{id}")
+	public String getFlaecheById(@PathParam("id") Integer id)
+			throws JsonParseException, JsonMappingException, IOException, SQLException, NamingException,
+			MismatchedDimensionException, NoSuchAuthorityCodeException, FactoryException, TransformException {
+
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+
+		Facade facade = new GeoJsonFacadeWithFilter(id);
 		return facade.getJson();
 	}
 

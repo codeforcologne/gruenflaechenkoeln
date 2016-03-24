@@ -1,10 +1,10 @@
 package de.illilli.opendata.service.gruenflaechen.koeln;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 
+import org.apache.log4j.Logger;
+import org.geotools.data.simple.SimpleFeatureCollection;
+import org.geotools.filter.text.cql2.CQLException;
 import org.opengis.geometry.MismatchedDimensionException;
 import org.opengis.referencing.FactoryException;
 import org.opengis.referencing.NoSuchAuthorityCodeException;
@@ -12,30 +12,45 @@ import org.opengis.referencing.operation.TransformException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import de.illilli.opendata.service.Facade;
+import de.illilli.opendata.service.Config;
 
-public class GeoJsonFacadeWithFilter implements Facade {
+public class GeoJsonFacadeWithFilter extends GeoJsonFacade {
 
-	private String json;
-	private Map<String, Object> params;
-	private String code = "EPSG:4326";
+	private static final Logger logger = Logger.getLogger(GeoJsonFacadeWithFilter.class);
 
-	public GeoJsonFacadeWithFilter(URL url) throws MismatchedDimensionException, NoSuchAuthorityCodeException,
+	private Integer id;
+
+	public GeoJsonFacadeWithFilter(Integer id) throws MismatchedDimensionException, NoSuchAuthorityCodeException,
 			IOException, FactoryException, TransformException {
-		params = new HashMap<String, Object>();
-		params.put("url", url);
-		params.put("create spatial index", false);
-		params.put("memory mapped buffer", false);
-		params.put("charset", "UTF-8");
-
-		CoordinateTransformer coordinateTransformer = new CoordinateTransformer(params, code);
-		Shape2GeoJsonTransformer shape2GeoJsonTransformer = new Shape2GeoJsonTransformer(
-				coordinateTransformer.getnewProjectionCollection());
-		json = shape2GeoJsonTransformer.getJson();
+		this.id = id;
+		setFeatureSource(new ShapeFileDownloader().getUrl());
 	}
 
 	@Override
 	public String getJson() throws JsonProcessingException {
+		String json = "";
+		try {
+			ObjekttypFilter filter = new ObjekttypFilter(featureSource);
+			SimpleFeatureCollection simpleFeatureCollection = filter
+					.getSimpleFeatureCollection(FlaechentypEnum.getById(this.id));
+			CoordinateTransformer coordinateTransformer = new CoordinateTransformer(featureSource,
+					Config.getProperty("epsg.code"));
+			Shape2GeoJsonTransformer shape2GeoJsonTransformer = new Shape2GeoJsonTransformer(
+					coordinateTransformer.transform(simpleFeatureCollection));
+			json = shape2GeoJsonTransformer.getJson();
+		} catch (CQLException e) {
+			logger.error(e);
+		} catch (IOException e) {
+			logger.error(e);
+		} catch (MismatchedDimensionException e) {
+			logger.error(e);
+		} catch (NoSuchAuthorityCodeException e) {
+			logger.error(e);
+		} catch (FactoryException e) {
+			logger.error(e);
+		} catch (TransformException e) {
+			logger.error(e);
+		}
 		return json;
 	}
 
