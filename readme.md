@@ -4,7 +4,7 @@ Dieser Service liest das Shape-File für das Grünflächekataster von [Gruenflae
 
 ## Status
 
-In Entwicklung/ nicht lauffähig
+In Entwicklung/ lauffähig/ nicht getestet
 
 ## Ziele
 
