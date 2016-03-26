@@ -34,11 +34,11 @@ import com.vividsolutions.jts.geom.Polygon;
  * @param simpleFeatureCollection
  */
 
-public class Shape2GeoJsonTransformer {
+public class SimpleGeoJsonTransformer implements GeoJsonTransformer {
 
 	private FeatureCollection geojsonFeatureCollection = new FeatureCollection();
 
-	public Shape2GeoJsonTransformer(SimpleFeatureCollection simpleFeatureCollection) {
+	public SimpleGeoJsonTransformer(SimpleFeatureCollection simpleFeatureCollection) {
 
 		SimpleFeatureIterator iterator = simpleFeatureCollection.features();
 		Feature geojsonFeature = null;
@@ -95,6 +95,7 @@ public class Shape2GeoJsonTransformer {
 
 	}
 
+	@Override
 	public String getJson() throws JsonProcessingException {
 		return new ObjectMapper().writeValueAsString(geojsonFeatureCollection);
 	}

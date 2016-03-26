@@ -56,7 +56,7 @@ public class GeoJsonFacade implements Facade {
 			CoordinateTransformer coordinateTransformer = new CoordinateTransformer(featureSource,
 					Config.getProperty("epsg.code"));
 			SimpleFeatureCollection simpleFeatureCollection = coordinateTransformer.transform();
-			Shape2GeoJsonTransformer shape2GeoJsonTransformer = new Shape2GeoJsonTransformer(simpleFeatureCollection);
+			GeoJsonTransformer shape2GeoJsonTransformer = new SimpleGeoJsonTransformer(simpleFeatureCollection);
 			json = shape2GeoJsonTransformer.getJson();
 		} catch (MismatchedDimensionException e) {
 			logger.error(e);
