@@ -29,13 +29,15 @@ public class ShapeFileDownloader {
 
 		URL url = new URL(Config.getProperty("gruenobjekte.koeln"));
 		String workingDirectory = System.getProperty("java.io.tmpdir")
-				+ Config.getProperty("gruenobjekte.working.directory") + File.pathSeparatorChar;
+				+ Config.getProperty("gruenobjekte.working.directory") + File.separator;
+		logger.info(workingDirectory);
 		File file = new File(workingDirectory + Config.getProperty("gruenobjekte.file.name"));
 		FileUtils.copyURLToFile(url, file);
+		logger.info(file.getAbsolutePath());
 
 		BufferedOutputStream dest = null;
 		FileInputStream fileInputStream = new FileInputStream(
-				System.getProperty("java.io.tmpdir") + Config.getProperty("gruenobjekte.file.name"));
+				workingDirectory + Config.getProperty("gruenobjekte.file.name"));
 		ZipInputStream zis = new ZipInputStream(new BufferedInputStream(fileInputStream));
 
 		ZipEntry entry;
@@ -54,7 +56,6 @@ public class ShapeFileDownloader {
 		}
 		zis.close();
 		File objekteShpFile = new File(workingDirectory + Config.getProperty("gruenobjekte.working.file"));
-
 		logger.info(objekteShpFile.getAbsolutePath());
 		this.url = objekteShpFile.toURI().toURL();
 	}
