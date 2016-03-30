@@ -35,7 +35,7 @@ public class GeoJsonFacadeWithFilter extends GeoJsonFacade {
 					.getSimpleFeatureCollection(FlaechentypEnum.getById(this.id));
 			CoordinateTransformer coordinateTransformer = new CoordinateTransformer(featureSource,
 					Config.getProperty("epsg.code"));
-			GeoJsonTransformer shape2GeoJsonTransformer = new SimpleGeoJsonTransformer(
+			GeoJsonTransformer shape2GeoJsonTransformer = new GeoToolsGeoJsonTransformer(
 					coordinateTransformer.transform(simpleFeatureCollection));
 			json = shape2GeoJsonTransformer.getJson();
 		} catch (CQLException e) {
