@@ -53,8 +53,7 @@ public class GeoJsonFacade implements Facade {
 
 		String json = "";
 		try {
-			CoordinateTransformer coordinateTransformer = new CoordinateTransformer(featureSource,
-					Config.getProperty("epsg.code"));
+			CoordinateTransformer coordinateTransformer = new CoordinateTransformer(featureSource);
 			SimpleFeatureCollection simpleFeatureCollection = coordinateTransformer.transform();
 			GeoJsonTransformer shape2GeoJsonTransformer = new GeoToolsGeoJsonTransformer(simpleFeatureCollection);
 			json = shape2GeoJsonTransformer.getJson();

@@ -41,7 +41,7 @@ public class CoordinateTransformerTest {
 	@Test
 	public void testSizeAll() throws IOException, NoSuchAuthorityCodeException, FactoryException,
 			MismatchedDimensionException, TransformException {
-		CoordinateTransformer ccr = new CoordinateTransformer(featureSource, code);
+		CoordinateTransformer ccr = new CoordinateTransformer(featureSource);
 		SimpleFeatureCollection sfc = ccr.transform();
 		int expected = 2802;
 		int actual = sfc.size();

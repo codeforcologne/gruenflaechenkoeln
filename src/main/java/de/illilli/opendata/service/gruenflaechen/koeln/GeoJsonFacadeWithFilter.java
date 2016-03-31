@@ -12,8 +12,6 @@ import org.opengis.referencing.operation.TransformException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import de.illilli.opendata.service.Config;
-
 public class GeoJsonFacadeWithFilter extends GeoJsonFacade {
 
 	private static final Logger logger = Logger.getLogger(GeoJsonFacadeWithFilter.class);
@@ -33,8 +31,7 @@ public class GeoJsonFacadeWithFilter extends GeoJsonFacade {
 			ObjekttypFilter filter = new ObjekttypFilter(featureSource);
 			SimpleFeatureCollection simpleFeatureCollection = filter
 					.getSimpleFeatureCollection(FlaechentypEnum.getById(this.id));
-			CoordinateTransformer coordinateTransformer = new CoordinateTransformer(featureSource,
-					Config.getProperty("epsg.code"));
+			CoordinateTransformer coordinateTransformer = new CoordinateTransformer(featureSource);
 			GeoJsonTransformer shape2GeoJsonTransformer = new GeoToolsGeoJsonTransformer(
 					coordinateTransformer.transform(simpleFeatureCollection));
 			json = shape2GeoJsonTransformer.getJson();

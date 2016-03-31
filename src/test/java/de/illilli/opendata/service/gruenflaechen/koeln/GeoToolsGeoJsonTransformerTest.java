@@ -41,7 +41,7 @@ public class GeoToolsGeoJsonTransformerTest {
 	@Test
 	public void testForFeatureCollection() throws IOException, MismatchedDimensionException,
 			NoSuchAuthorityCodeException, FactoryException, TransformException {
-		CoordinateTransformer ccr = new CoordinateTransformer(featureSource, code);
+		CoordinateTransformer ccr = new CoordinateTransformer(featureSource);
 		GeoJsonTransformer transformer = new GeoToolsGeoJsonTransformer(ccr.transform());
 		String json = transformer.getJson();
 		System.out.println(json);
@@ -51,7 +51,7 @@ public class GeoToolsGeoJsonTransformerTest {
 	@Test
 	public void testForCrs() throws IOException, MismatchedDimensionException, NoSuchAuthorityCodeException,
 			FactoryException, TransformException {
-		CoordinateTransformer ccr = new CoordinateTransformer(featureSource, code);
+		CoordinateTransformer ccr = new CoordinateTransformer(featureSource);
 		GeoJsonTransformer transformer = new GeoToolsGeoJsonTransformer(ccr.transform());
 		String json = transformer.getJson();
 		Assert.assertTrue(json.contains("EPSG:3044"));

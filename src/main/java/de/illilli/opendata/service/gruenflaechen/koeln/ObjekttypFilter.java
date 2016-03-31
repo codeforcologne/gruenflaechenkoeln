@@ -12,8 +12,6 @@ import org.opengis.referencing.FactoryException;
 import org.opengis.referencing.NoSuchAuthorityCodeException;
 import org.opengis.referencing.operation.TransformException;
 
-import de.illilli.opendata.service.Config;
-
 public class ObjekttypFilter {
 
 	private SimpleFeatureCollection features;
@@ -27,8 +25,7 @@ public class ObjekttypFilter {
 			throws CQLException, IOException, MismatchedDimensionException, NoSuchAuthorityCodeException,
 			FactoryException, TransformException {
 		Filter filter = CQL.toFilter(flaechentyp.cqlPredicate());
-		CoordinateTransformer coordinateTransformer = new CoordinateTransformer(featureSource,
-				Config.getProperty("epsg.code"));
+		CoordinateTransformer coordinateTransformer = new CoordinateTransformer(featureSource);
 		return featureSource.getFeatures(filter);
 	}
 }

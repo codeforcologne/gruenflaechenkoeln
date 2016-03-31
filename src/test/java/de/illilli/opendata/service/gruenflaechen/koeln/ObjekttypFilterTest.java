@@ -27,7 +27,6 @@ public class ObjekttypFilterTest {
 
 	private URL url;
 	private Map<String, Object> params;
-	private String code = "EPSG:4326";
 
 	@Before
 	public void setUp() throws Exception {
