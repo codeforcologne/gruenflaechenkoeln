@@ -29,4 +29,12 @@ public class GeoJsonFacadeTest {
 		Assert.assertTrue(json.contains("FeatureCollection"));
 	}
 
+	@Test
+	public void testForFeatureCollectionWithDownload() throws MismatchedDimensionException,
+			NoSuchAuthorityCodeException, IOException, FactoryException, TransformException {
+		GeoJsonFacade facade = new GeoJsonFacade();
+		String json = facade.getJson();
+		Assert.assertTrue(json.contains("FeatureCollection"));
+	}
+
 }
