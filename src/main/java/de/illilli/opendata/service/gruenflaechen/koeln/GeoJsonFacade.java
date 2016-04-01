@@ -26,10 +26,11 @@ public class GeoJsonFacade implements Facade {
 
 	private Map<String, Object> params;
 	SimpleFeatureSource featureSource;
+	private static DataStore dataStore;
 
 	public GeoJsonFacade() throws MismatchedDimensionException, NoSuchAuthorityCodeException, IOException,
 			FactoryException, TransformException {
-		setFeatureSource(new ShapeFileDownloader().getUrl());
+		setFeatureSource(ShapeFileDownloader.getInstance().getUrl());
 	}
 
 	public GeoJsonFacade(URL url) throws MismatchedDimensionException, NoSuchAuthorityCodeException, IOException,
@@ -38,14 +39,15 @@ public class GeoJsonFacade implements Facade {
 	}
 
 	void setFeatureSource(URL url) throws IOException {
-		params = new HashMap<String, Object>();
-		params.put("url", url);
-		params.put("create spatial index", false);
-		params.put("memory mapped buffer", false);
-		params.put("charset", Config.getProperty("encoding"));
-
-		DataStore store = DataStoreFinder.getDataStore(params);
-		featureSource = store.getFeatureSource(store.getTypeNames()[0]);
+		if (dataStore == null) {
+			params = new HashMap<String, Object>();
+			params.put("url", url);
+			params.put("create spatial index", false);
+			params.put("memory mapped buffer", false);
+			params.put("charset", Config.getProperty("encoding"));
+			dataStore = DataStoreFinder.getDataStore(params);
+		}
+		featureSource = dataStore.getFeatureSource(dataStore.getTypeNames()[0]);
 	}
 
 	@Override

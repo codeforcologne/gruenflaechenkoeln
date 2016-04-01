@@ -19,22 +19,40 @@ public class ShapeFileDownloader {
 
 	private static final Logger logger = Logger.getLogger(ShapeFileDownloader.class);
 
-	private URL url;
+	private static ShapeFileDownloader downloader;
+	private File objekteShpFile;
+	private String workingDirectory = System.getProperty("java.io.tmpdir")
+			+ Config.getProperty("gruenobjekte.working.directory") + File.separator;
 
-	public ShapeFileDownloader() throws IOException {
-		downloadFile();
+	private ShapeFileDownloader() throws IOException {
+		objekteShpFile = new File(workingDirectory + Config.getProperty("gruenobjekte.working.file"));
+		if (objekteShpFile == null || !objekteShpFile.exists()) {
+			downloadFile();
+			unzipFile();
+			objekteShpFile = new File(workingDirectory + Config.getProperty("gruenobjekte.working.file"));
+			logger.info(objekteShpFile.getAbsolutePath());
+		}
+	}
+
+	public static ShapeFileDownloader getInstance() throws IOException {
+		if (downloader == null) {
+			downloader = new ShapeFileDownloader();
+		}
+		return downloader;
 	}
 
 	void downloadFile() throws IOException {
 
-		URL url = new URL(Config.getProperty("gruenobjekte.koeln"));
-		String workingDirectory = System.getProperty("java.io.tmpdir")
-				+ Config.getProperty("gruenobjekte.working.directory") + File.separator;
-		logger.info(workingDirectory);
-		File file = new File(workingDirectory + Config.getProperty("gruenobjekte.file.name"));
-		FileUtils.copyURLToFile(url, file);
-		logger.info(file.getAbsolutePath());
+		if (!objekteShpFile.exists()) {
+			URL url = new URL(Config.getProperty("gruenobjekte.koeln"));
+			logger.info(workingDirectory);
+			File file = new File(workingDirectory + Config.getProperty("gruenobjekte.file.name"));
+			FileUtils.copyURLToFile(url, file);
+			logger.info(file.getAbsolutePath());
+		}
+	}
 
+	void unzipFile() throws IOException {
 		BufferedOutputStream dest = null;
 		FileInputStream fileInputStream = new FileInputStream(
 				workingDirectory + Config.getProperty("gruenobjekte.file.name"));
@@ -55,13 +73,34 @@ public class ShapeFileDownloader {
 			dest.close();
 		}
 		zis.close();
-		File objekteShpFile = new File(workingDirectory + Config.getProperty("gruenobjekte.working.file"));
-		logger.info(objekteShpFile.getAbsolutePath());
-		this.url = objekteShpFile.toURI().toURL();
 	}
 
-	public URL getUrl() {
-		return this.url;
+	boolean removeShpFile() {
+		boolean fileRemoved = false;
+		downloader.objekteShpFile = new File(workingDirectory + Config.getProperty("gruenobjekte.working.file"));
+		if (downloader.objekteShpFile.exists()) {
+			File workingDir = new File(workingDirectory);
+			if (workingDir.isDirectory()) {
+				String[] fileList = workingDir.list();
+				// delete contents of directory first.
+				for (String fileName : fileList) {
+					boolean deleted = new File(workingDirectory + fileName).delete();
+					logger.info(fileName + " deleted: " + deleted);
+				}
+				// remove static Content
+				downloader.objekteShpFile = null;
+				// delete directory itself.
+				fileRemoved = workingDir.delete();
+			}
+		}
+		return fileRemoved;
+	}
+
+	public URL getUrl() throws IOException {
+		if (objekteShpFile == null || !objekteShpFile.exists()) {
+			downloader = new ShapeFileDownloader();
+		}
+		return downloader.objekteShpFile.toURI().toURL();
 	}
 
 }

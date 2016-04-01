@@ -21,7 +21,7 @@ public class GeoJsonFacadeWithFilter extends GeoJsonFacade {
 	public GeoJsonFacadeWithFilter(Integer id) throws MismatchedDimensionException, NoSuchAuthorityCodeException,
 			IOException, FactoryException, TransformException {
 		this.id = id;
-		setFeatureSource(new ShapeFileDownloader().getUrl());
+		setFeatureSource(ShapeFileDownloader.getInstance().getUrl());
 	}
 
 	@Override
