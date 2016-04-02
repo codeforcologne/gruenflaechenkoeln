@@ -68,7 +68,14 @@ public class Service {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 
-		Facade facade = new GeoJsonFacade();
+		boolean resource = request.getParameter("resource") != null;
+
+		Facade facade = null;
+		if (resource) {
+			facade = new GeoJsonFromResourcesFacade();
+		} else {
+			facade = new GeoJsonFacade();
+		}
 		return facade.getJson();
 	}
 
@@ -105,7 +112,15 @@ public class Service {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 
-		Facade facade = new GeoJsonFacadeWithFilter(id);
+		boolean resource = request.getParameter("resource") != null;
+
+		Facade facade = null;
+		if (resource) {
+			facade = new GeoJsonFromResourcesFacade(id);
+		} else {
+			facade = new GeoJsonFacadeWithFilter(id);
+		}
+
 		return facade.getJson();
 	}
 
