@@ -18,7 +18,7 @@ Es soll ein Service erstellt werden, der die von der Stadt Köln zur Verfügung 
 - [11: Sondergrünflächen](https://github.com/codeforcologne/gruenflaechenkoeln/blob/master/src/main/resources/11.json)
 - [12: Forsteigene Flächen](https://github.com/codeforcologne/gruenflaechenkoeln/blob/master/src/main/resources/12.json) 
 
-Hierfür werden REST-Endpoints eingerichtet. Außerdem soll eine einfache Oberfläche den Inhalt der Services darstellen. Diese Oberfläche soll auf Basis von [BootLeaf](https://github.com/bmcbride/bootleaf) erstellt werden.
+Hierfür werden REST-Endpoints eingerichtet. 
 
 ## GeoTools
 
