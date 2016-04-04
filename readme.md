@@ -10,13 +10,13 @@ In Entwicklung/ lauffähig/ nicht getestet
 
 Es soll ein Service erstellt werden, der die von der Stadt Köln zur Verfügung gestellten Informationen bzgl. der Grünflächen als GeoJson formatiert. Desweiteren soll es möglich sein, gezielt Flächentypen abfragen zu können. Folgende Flächentypen werden unterstützt:
 
-- [ 2: Kleingärten](https://github.com/weberius/gruenflaechenkoeln/blob/master/src/main/resources/2.json)
-- [ 4: Spielplätze](https://github.com/weberius/gruenflaechenkoeln/blob/master/src/main/resources/4.json)
-- [ 7: Grünanlagen](https://github.com/weberius/gruenflaechenkoeln/blob/master/src/main/resources/7.json)
-- [ 8: Friedhöfe](https://github.com/weberius/gruenflaechenkoeln/blob/master/src/main/resources/8.json)
-- [ 9: Biotopflächen](https://github.com/weberius/gruenflaechenkoeln/blob/master/src/main/resources/9.json)
-- [11: Sondergrünflächen](https://github.com/weberius/gruenflaechenkoeln/blob/master/src/main/resources/11.json)
-- [12: Forsteigene Flächen](https://github.com/weberius/gruenflaechenkoeln/blob/master/src/main/resources/12.json) 
+- [ 2: Kleingärten](https://github.com/codeforcologne/gruenflaechenkoeln/blob/master/src/main/resources/2.json)
+- [ 4: Spielplätze](https://github.com/codeforcologne/gruenflaechenkoeln/blob/master/src/main/resources/4.json)
+- [ 7: Grünanlagen](https://github.com/codeforcologne/gruenflaechenkoeln/blob/master/src/main/resources/7.json)
+- [ 8: Friedhöfe](https://github.com/codeforcologne/gruenflaechenkoeln/blob/master/src/main/resources/8.json)
+- [ 9: Biotopflächen](https://github.com/codeforcologne/gruenflaechenkoeln/blob/master/src/main/resources/9.json)
+- [11: Sondergrünflächen](https://github.com/codeforcologne/gruenflaechenkoeln/blob/master/src/main/resources/11.json)
+- [12: Forsteigene Flächen](https://github.com/codeforcologne/gruenflaechenkoeln/blob/master/src/main/resources/12.json) 
 
 Hierfür werden REST-Endpoints eingerichtet. Außerdem soll eine einfache Oberfläche den Inhalt der Services darstellen. Diese Oberfläche soll auf Basis von [BootLeaf](https://github.com/bmcbride/bootleaf) erstellt werden.
 
@@ -54,20 +54,20 @@ Diese Schnittstelle liefert ein Subset von Flächen in Abhängigkeit von der Fl�
 ### /gruenflaechenkoeln/service/flaechen/{id}?resourcee
 Da die Berechnung auf Systemen mit geringen Resourcen (z.B. Raspberry Pi) länger dauern kann, liegen bereits fertig berechnete Ergebnisse im resources-Verzeichnis. Diese werden von der Applikation aus über den Parameter 'resource' erreicht. Diese json-Dateien finden sich auch auf github und können von dort direkt bezogen werden:
 
-- [/gruenflaechenkoeln/service/flaechen/2?resource (Kleingärten)](https://raw.githubusercontent.com/weberius/gruenflaechenkoeln/master/src/main/resources/2.json)
-- [/gruenflaechenkoeln/service/flaechen/4?resource (Spielplätze)](https://raw.githubusercontent.com/weberius/gruenflaechenkoeln/master/src/main/resources/4.json)
-- [/gruenflaechenkoeln/service/flaechen/7?resource (Grünanlagen)](https://raw.githubusercontent.com/weberius/gruenflaechenkoeln/master/src/main/resources/7.json)
-- [/gruenflaechenkoeln/service/flaechen/8?resource (Friedhöfe)](https://raw.githubusercontent.com/weberius/gruenflaechenkoeln/master/src/main/resources/8.json)
-- [/gruenflaechenkoeln/service/flaechen/9?resource (Biotopflächen)](https://raw.githubusercontent.com/weberius/gruenflaechenkoeln/master/src/main/resources/9.json)
-- [/gruenflaechenkoeln/service/flaechen/11?resource (Sondergrünflächen)](https://raw.githubusercontent.com/weberius/gruenflaechenkoeln/master/src/main/resources/11.json)
-- [/gruenflaechenkoeln/service/flaechen/12?resource (Forsteigene Flächen)](https://raw.githubusercontent.com/weberius/gruenflaechenkoeln/master/src/main/resources/12.json) 
+- [/gruenflaechenkoeln/service/flaechen/2?resource (Kleingärten)](https://raw.githubusercontent.com/codeforcologne/gruenflaechenkoeln/master/src/main/resources/2.json)
+- [/gruenflaechenkoeln/service/flaechen/4?resource (Spielplätze)](https://raw.githubusercontent.com/codeforcologne/gruenflaechenkoeln/master/src/main/resources/4.json)
+- [/gruenflaechenkoeln/service/flaechen/7?resource (Grünanlagen)](https://raw.githubusercontent.com/codeforcologne/gruenflaechenkoeln/master/src/main/resources/7.json)
+- [/gruenflaechenkoeln/service/flaechen/8?resource (Friedhöfe)](https://raw.githubusercontent.com/codeforcologne/gruenflaechenkoeln/master/src/main/resources/8.json)
+- [/gruenflaechenkoeln/service/flaechen/9?resource (Biotopflächen)](https://raw.githubusercontent.com/codeforcologne/gruenflaechenkoeln/master/src/main/resources/9.json)
+- [/gruenflaechenkoeln/service/flaechen/11?resource (Sondergrünflächen)](https://raw.githubusercontent.com/codeforcologne/gruenflaechenkoeln/master/src/main/resources/11.json)
+- [/gruenflaechenkoeln/service/flaechen/12?resource (Forsteigene Flächen)](https://raw.githubusercontent.com/codeforcologne/gruenflaechenkoeln/master/src/main/resources/12.json) 
 
 
 ## Installationn
 
 Der Service kann über git heruntergeladen werden
 
-    git clone https://github.com/weberius/gruenflaechenkoeln.git
+    git clone https://github.com/codeforcologne/gruenflaechenkoeln.git
     
 Danach muss er noch installiert werden. Dabei wird vorausgesetzt, dass auf dem Rechner mindestens JAVA 7 und das aktuelle [maven](https://maven.apache.org/) installiert ist. 
 
