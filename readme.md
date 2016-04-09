@@ -94,6 +94,11 @@ Danach befindet sich im Verzeichnis target die Datei 'gruenflaechenkoeln.war'. D
 
     mv gruenflaechenkoeln.war $CATALINA_HOME/webapps
 
+Alternativ kann der Service direkt von der Kommandozeile aus gestartet werden:
+
+    mvn jetty:run
+    
+Der Service kann dann z.B. unter [http://localhost:8080/service/flaechen/4](http://localhost:8080/service/flaechen/4) aufgerufen werden.
 
 ## License
 
